@@ -1,0 +1,48 @@
+Sub WriteToExcel()
+'Define script variables'
+Dim FolderWay, ObjectWay, FileName, File, FileExist, Apendix, Row
+
+'Define folder way, could be set from HMI'
+FolderWay = SmartTags("Example_data_File_Path")
+
+'Creating of object contining way to folder'
+Set ObjectWay = CreateObject("Scripting.FileSystemObject")
+
+'If no folder exist, create it'
+If Not ObjectWay.FolderExists(FolderWay) Then
+	ObjectWay.CreateFolder FolderWay
+End If
+
+'Define filename, could be set from HMI'
+FileName = (SmartTags("Example_data_File_name") & ".csv")
+
+'Create new object to control if file existence'
+Set File = CreateObject("Scripting.FileSystemObject")
+
+FileExist = File.FileExists(FolderWay & "\" & FileName)
+
+If FileExist = False Then
+	'Create file'
+	File.CreateTextFile(FolderWay & "\" & FileName)
+	
+	'Seting appendix of excel file'
+	Set Apendix = File.OpenTextFile(FolderWay & "\" & FileName,8)
+	
+	Apendix.WriteLine(" Experiment id , Water level , Oil level, Emulsion line , PT 101 , PT 102 , PT 103 , PT 104 , PT 105 , LT 108 ")
+	
+	Apendix.Close
+	'Clear object'
+	Set File = Nothing
+	
+End If
+
+Set File = CreateObject("Scripting.FileSystemObject")
+Set Row = File.OpenTextFile(FolderWay & "\" & FileName,8)
+
+Row.WriteLine(SmartTags("Example_data_Expiriment number") & "," & SmartTags("Example_data_WaterLine") & "," & SmartTags("Example_data_OilLine")_
+ & "," & SmartTags("Example_data_EmulsionLine") & "," & SmartTags("Example_data_PT101") & "," & SmartTags("Example_data_PT102")_
+ & "," & SmartTags("Example_data_PT103") & "," & SmartTags("Example_data_PT104") & "," & SmartTags("Example_data_PT105")_
+ & "," & SmartTags("Example_data_LT108"))
+Row.Close
+
+End Sub
