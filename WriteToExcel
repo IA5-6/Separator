@@ -14,7 +14,7 @@ If Not ObjectWay.FolderExists(FolderWay) Then
 End If
 
 'Define filename, could be set from HMI'
-FileName = (SmartTags("Example_data_File_name") & ".csv")
+FileName = (SmartTags("Example_data_File_name") & ".txt")
 
 'Create new object to control if file existence'
 Set File = CreateObject("Scripting.FileSystemObject")
@@ -39,10 +39,10 @@ End If
 Set File = CreateObject("Scripting.FileSystemObject")
 Set Row = File.OpenTextFile(FolderWay & "\" & FileName,8)
 
-Row.WriteLine(SmartTags("Example_data_Expiriment number") & "," & SmartTags("Example_data_WaterLine") & "," & SmartTags("Example_data_OilLine")_
- & "," & SmartTags("Example_data_EmulsionLine") & "," & SmartTags("Example_data_PT101") & "," & SmartTags("Example_data_PT102")_
- & "," & SmartTags("Example_data_PT103") & "," & SmartTags("Example_data_PT104") & "," & SmartTags("Example_data_PT105")_
- & "," & SmartTags("Example_data_LT108"))
+Row.WriteLine(SmartTags("Measurments_DB_ExpirimentId") & "," & SmartTags("Measurments_DB_WaterLine") & "," & SmartTags("Measurments_DB_OilLine")_
+ & "," & SmartTags("Measurments_DB_EmulsionLine") & "," & SmartTags("Measurments_DB_PT101") & "," & SmartTags("Measurments_DB_PT102")_
+ & "," & SmartTags("Measurments_DB_PT103") & "," & SmartTags("Measurments_DB_PT104") & "," & SmartTags("Measurments_DB_PT105")_
+ & "," & SmartTags("Measurments_DB_LT108"))
 Row.Close
 
 End Sub
