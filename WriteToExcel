@@ -3,7 +3,7 @@ Sub WriteToExcel()
 Dim FolderWay, ObjectWay, FileName, File, FileExist, Apendix, Row
 
 'Define folder way, could be set from HMI'
-FolderWay = SmartTags("Example_data_File_Path")
+FolderWay = SmartTags("Measurments_DB_FilePath")
 
 'Creating of object contining way to folder'
 Set ObjectWay = CreateObject("Scripting.FileSystemObject")
@@ -14,7 +14,7 @@ If Not ObjectWay.FolderExists(FolderWay) Then
 End If
 
 'Define filename, could be set from HMI'
-FileName = (SmartTags("Example_data_File_name") & ".txt")
+FileName = (SmartTags("Measurments_DB_FileName") & ".txt")
 
 'Create new object to control if file existence'
 Set File = CreateObject("Scripting.FileSystemObject")
