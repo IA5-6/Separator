@@ -1,4 +1,10 @@
-Sub WriteToExcel()
+Sub VBFunction_1()
+'Tip:
+' 1. Use the <CTRL+SPACE> or <CTRL+I> shortcut to open a list of all objects and functions
+' 2. Write the code using the HMI Runtime object.
+'  Example: HmiRuntime.Screens("Screen_1").
+' 3. Use the <CTRL+J> shortcut to create an object reference.
+'Write the code as of this position:
 'Define script variables'
 Dim FolderWay, ObjectWay, FileName, File, FileExist, Apendix, Row
 
@@ -14,7 +20,7 @@ If Not ObjectWay.FolderExists(FolderWay) Then
 End If
 
 'Define filename, could be set from HMI'
-FileName = (SmartTags("Measurments_DB_FileName") & ".txt")
+FileName = (SmartTags("Measurments_DB_FileName") & ".csv")
 
 'Create new object to control if file existence'
 Set File = CreateObject("Scripting.FileSystemObject")
@@ -28,7 +34,7 @@ If FileExist = False Then
 	'Seting appendix of excel file'
 	Set Apendix = File.OpenTextFile(FolderWay & "\" & FileName,8)
 	
-	Apendix.WriteLine(" Experiment id , Water level , Oil level, Emulsion line , PT 101 , PT 102 , PT 103 , PT 104 , PT 105 , LT 108 ")
+	Apendix.WriteLine("Timeststamp , Experiment id , Water level , Oil level, Emulsion line , PT 101 , PT 102 , PT 103 , PT 104 , PT 105 , LT 108 ")
 	
 	Apendix.Close
 	'Clear object'
@@ -39,10 +45,11 @@ End If
 Set File = CreateObject("Scripting.FileSystemObject")
 Set Row = File.OpenTextFile(FolderWay & "\" & FileName,8)
 
-Row.WriteLine(SmartTags("Measurments_DB_ExpirimentId") & "," & SmartTags("Measurments_DB_WaterLine") & "," & SmartTags("Measurments_DB_OilLine")_
- & "," & SmartTags("Measurments_DB_EmulsionLine") & "," & SmartTags("Measurments_DB_PT101") & "," & SmartTags("Measurments_DB_PT102")_
- & "," & SmartTags("Measurments_DB_PT103") & "," & SmartTags("Measurments_DB_PT104") & "," & SmartTags("Measurments_DB_PT105")_
- & "," & SmartTags("Measurments_DB_LT108"))
+Row.WriteLine(Date & " " & Time & "," & SmartTags("Measurments_DB_ExperimentId") & "," & SmartTags("Measurements_DB_WaterLine") & "," & SmartTags("Measurements_DB_OilLine")_
+ & "," & SmartTags("Measurements_DB_EmulsionLine") & "," & SmartTags("Measurements_DB_PT101") & "," & SmartTags("Measurements_DB_PT102")_
+ & "," & SmartTags("Measurements_DB_PT103") & "," & SmartTags("Measurements_DB_PT104") & "," & SmartTags("Measurements_DB_PT105")_
+ & "," & SmartTags("Measurements_DB_LT108"))
 Row.Close
+
 
 End Sub
